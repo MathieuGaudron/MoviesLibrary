@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Movie {
   id: number;
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
     const fetchMovies = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=fr-FR&include_adult=true&page=1`
         );
         if (!response.ok) {
           throw new Error(`error : ${response.status}`);
@@ -32,10 +33,11 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-8 min-h-screen flex justify-center">
+    <div className="p-8 min-h-screen flex justify-center font-sans">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {movies.map((movie) => (
-          <div
+          <Link
+            to={`/movie/${movie.id}`} 
             key={movie.id}
             className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer w-60"
           >
@@ -45,13 +47,13 @@ const Home: React.FC = () => {
               className="w-full h-96 object-cover"
             />
 
-            <div className="p-4 text-white bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 ">
+            <div className="p-4 text-white bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900">
               <h2 className="text-lg font-semibold truncate">{movie.title}</h2>
               <p className="text-gray-300">
                 {new Date(movie.release_date).getFullYear()}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
