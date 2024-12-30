@@ -1,125 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Pagination from "./Pagination";
 
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  release_date: string;
-}
-
-const API_KEY = "49c4a00d23ea0f1e33aac25430e1195d";
-
-const Home: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=fr-FR&page=${currentPage}`
-        );
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        setMovies(data.results);
-        setTotalPages(data.total_pages);
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-      }
-    };
-
-    if (searchTerm.trim() === "") {
-      fetchMovies();
-    }
-  }, [currentPage, searchTerm]);
-
-  useEffect(() => {
-    const searchMovies = async () => {
-      if (searchTerm.trim() === "") {
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=fr-FR&query=${searchTerm}&page=${currentPage}`
-        );
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        setMovies(data.results);
-        setTotalPages(data.total_pages);
-      } catch (error) {
-        console.error("Failed to search movies:", error);
-      }
-    };
-
-    const delayDebounceFn = setTimeout(() => {
-      searchMovies();
-    }, 300);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm, currentPage]);
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
+const Home = () => {
   return (
-    <div className="p-8 min-h-screen font-sans">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-white mb-4">Bienvenue à Movies Library</h1>
-        <p className="text-lg text-gray-300">Découvrez les films les plus populaires et recherchez vos favoris.</p>
-      </div>
+    <div className="relative h-screen overflow-hidden ">
 
-      <div className="mb-8 flex justify-center">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setCurrentPage(1);
-          }}
-          placeholder="Rechercher un film..."
-          className="p-2 w-1/2 rounded-lg focus:outline-none"
-        />
-      </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-4">
-        {movies.map((movie) => (
-          <Link
-            to={`/movie/${movie.id}`}
-            key={movie.id}
-            className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer"
-          >
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="w-full h-96 object-cover"
-            />
-            <div className="p-4 text-white bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900">
-              <h2 className="text-lg font-semibold truncate">{movie.title}</h2>
-              <p className="text-gray-300">
-                {new Date(movie.release_date).getFullYear()}
-              </p>
-            </div>
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 right-0 w-full p-4 z-20 flex justify-between items-center bg-black shadow-lg">
+        <h1 className="text-3xl font-modak bg-gradient-to-r from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent transform transition duration-700 hover:scale-105">
+          <Link to="/" className="cursor-pointer">
+            MOVIES LIBRARY
           </Link>
-        ))}
-      </div>
+        </h1>
+        <ul className="flex space-x-4 font-inter">
+          <li>
+            <Link
+              to="/login"
+              className="text-white hover:text-gray-300 font-semibold cursor-pointer"
+            >
+              Se connecter →
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/signup"
+              className="bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold cursor-pointer"
+            >
+              S'inscrire →
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+
+      <div className="animate-slideInUpWithBlur">
+        {/* Image background acceuil */}
+        <div className="relative w-full h-[60vh] z-0">
+          <img
+            src="/assets/bg-movieslibrary.jpg"
+            alt="image_acceuil"
+            className="absolute top-0 left-0 w-full h-full object-cover z-0  mask-radial-fade opacity-45"
+            style={{
+              maskSize: "full",
+              WebkitMaskImage:
+                "radial-gradient(circle, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center z-10 ">
+            <h2 className="text-4xl text-white font-inter font-bold">
+              Découvrez notre catalogue des meilleurs Films et SériesTV du
+              moment !
+            </h2>
+            <div className="mt-6"></div>
+          </div>
+        </div>
+
+        {/* a voir */}
+        <div className="relative w-full h-[40vh] flex justify-around items-center bg-black ">
+          <div className="w-[30%] h-[70%] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
+            Div Rouge
+          </div>
+          <div className="w-[30%] h-[70%] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
+            Div Rose
+          </div>
+          <div className="w-[30%] h-[70%] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
+            Div Jaune
+          </div>
+        </div>
+
+        
+      </div>
     </div>
   );
 };
