@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="relative h-screen overflow-hidden ">
-
+    <div className="relative h-screen overflow-y-auto">
 
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 w-full p-4 z-20 flex justify-between items-center bg-black shadow-lg">
@@ -34,38 +33,38 @@ const Home = () => {
       </nav>
 
 
+
       <div className="animate-slideInUpWithBlur">
-        {/* Image background acceuil */}
+
+        {/* Image background accueil */}
         <div className="relative w-full h-[60vh] z-0">
           <img
             src="/assets/bg-movieslibrary.jpg"
             alt="image_acceuil"
-            className="absolute top-0 left-0 w-full h-full object-cover z-0  mask-radial-fade opacity-45"
+            className="absolute top-0 left-0 w-full h-full object-cover z-0 mask-radial-fade opacity-45"
             style={{
               maskSize: "full",
               WebkitMaskImage:
                 "radial-gradient(circle, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 100%)",
             }}
           />
-
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-center z-10 ">
-            <h2 className="text-4xl text-white font-inter font-bold">
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center z-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl text-white font-inter font-bold">
               Découvrez notre catalogue des meilleurs Films et SériesTV du
               moment !
             </h2>
-            <div className="mt-6"></div>
           </div>
         </div>
 
-        {/* a voir */}
-        <div className="relative w-full h-[40vh] flex justify-around items-center bg-black ">
-          <div className="w-[30%] h-[70%] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
+        {/* Section avec 3 divs */}
+        <div className="relative w-full h-auto py-10 flex flex-col sm:flex-row justify-center items-center gap-6">
+          <div className="w-[80%] sm:w-[30%] h-[200px] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
             Div Rouge
           </div>
-          <div className="w-[30%] h-[70%] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
+          <div className="w-[80%] sm:w-[30%] h-[200px] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
             Div Rose
           </div>
-          <div className="w-[30%] h-[70%] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
+          <div className="w-[80%] sm:w-[30%] h-[200px] bg-purple-500 rounded-lg flex justify-center items-center text-white font-bold">
             Div Jaune
           </div>
         </div>
