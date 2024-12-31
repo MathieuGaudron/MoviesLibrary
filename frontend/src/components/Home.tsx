@@ -160,21 +160,21 @@ const Home: React.FC = () => {
             <div className="text-purple-500 text-5xl mb-4">
               <i className="fas fa-film"></i> 
             </div>
-            <p className="text-white text-lg font-semibold">Un divertissement <br /> sans fin.</p>
+            <p className="text-white text-2xl font-semibold">Un divertissement <br /> sans fin.</p>
           </div>
 
           <div className="flex flex-col justify-center items-center text-center">
             <div className="text-purple-500 text-5xl mb-4">
               <i className="fas fa-tablet-alt"></i> 
             </div>
-            <p className="text-white text-lg font-semibold">Disponible sur <br /> tous vos appareils.</p>
+            <p className="text-white text-2xl font-semibold">Disponible sur <br /> tous vos appareils.</p>
           </div>
 
           <div className="flex flex-col justify-center items-center text-center">
             <div className="text-purple-500 text-5xl mb-4">
               <i className="fas fa-bell"></i>
             </div>
-            <p className="text-white text-lg font-semibold">Restez informés <br /> des dernières sorties.</p>
+            <p className="text-white text-2xl font-semibold">Restez informés <br /> des dernières sorties.</p>
           </div>
 
         </div>

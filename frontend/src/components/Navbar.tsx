@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 left-0 right-0 max-w-full w-full p-4 z-20 flex justify-between items-center bg-black shadow-lg">
+    <nav className="sticky top-0 left-0 right-0 max-w-full w-full p-4 z-20 flex justify-between items-center bg-black shadow-lg bg-opacity-70 backdrop-blur-sm">
       {/* Logo */}
       <h1 className="text-3xl font-modak bg-gradient-to-r from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent transform transition duration-700 hover:scale-105">
         <Link to="/" className="cursor-pointer">
