@@ -6,23 +6,46 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Ajoutez ici la logique d'inscription
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
-    // Redirigez l'utilisateur après l'inscription
-    navigate("/");
+
+    if (password !== confirmPassword) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:4000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: name,
+          email,
+          password,
+        }),
+      });
+
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        const data = await response.json();
+        setError(data.message || "Erreur lors de l'inscription.");
+      }
+    } catch (err) {
+      setError("Une erreur est survenue. Veuillez réessayer.");
+    }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-900">Inscription</h2>
+        {error && <p className="text-red-500 text-sm">{error}</p>}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -98,4 +121,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;  
+export default Signup;

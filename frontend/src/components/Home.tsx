@@ -188,15 +188,16 @@ const Home: React.FC = () => {
         
 
  
+      
+      {/* Abonnements */}
       <div className="flex flex-col justify-center font-inter items-center mt-20 mb-10">
       <h3 className="text-white text-3xl font-bold mb-10">Choisissez votre abonnement</h3>
-
+          
       <div className="flex flex-wrap justify-center gap-10">
 
-        {/* Carte Basique */}
-        <div className="bg-gray-800 text-white p-6 rounded-lg shadow-md w-80 transform transition duration-300 hover:scale-105 flex flex-col">
-          <h4 className="text-2xl font-bold mb-4">Basique</h4>
-          <p className="text-purple-500 text-2xl font-bold mb-8">3,99€/mois</p>
+        <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md w-80 transform transition duration-300 hover:scale-105 flex flex-col">
+          <h4 className="text-3xl font-bold mt-16 mb-8 text-center">Basique</h4>
+          <p className="text-purple-500 text-2xl font-bold mb-8 text-center">3,99€/mois</p>
           <ul className="list-inside mb-4 flex-grow list-none">
             <li className="mb-2 font-semibold"> <span className="text-purple-500 mr-2">✔</span> Streamez sur un appareil</li>
             <li className="mb-2 font-semibold"> <span className="text-purple-500 mr-2">✔</span> Aucune pub</li>
@@ -207,15 +208,15 @@ const Home: React.FC = () => {
           </button>
         </div>
 
-        {/* Carte Pro */}
+
         <div className="relative transform transition duration-300 hover:scale-105 flex flex-col">
           <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow-md">
             Le plus populaire
           </div>
 
-          <div className="bg-gray-800 text-white p-6 rounded-lg shadow-md w-80 border-2 border-purple-500 flex flex-col">
-            <h4 className="text-2xl font-bold mb-4">Pro</h4>
-            <p className="text-purple-500 text-2xl font-bold mb-8">5,99€/mois</p>
+          <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md w-80 border-2 border-purple-500 flex flex-col">
+            <h4 className="text-3xl font-bold mt-16 mb-8 text-center">Pro</h4>
+            <p className="text-purple-500 text-2xl font-bold mb-8 text-center">5,99€/mois</p>
             <ul className="list-none list-inside mb-4 flex-grow">
               <li className="mb-2 font-semibold"> <span className="text-purple-500 mr-2">✔</span> Streamez sur 5 appareils</li>
               <li className="mb-2 font-semibold"> <span className="text-purple-500 mr-2">✔</span> Aucune pub</li>
@@ -227,10 +228,10 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Carte Premium */}
-        <div className="bg-gray-800 text-white p-6 rounded-lg shadow-md w-80 transform transition duration-300 hover:scale-105 flex flex-col">
-          <h4 className=" text-2xl font-bold mb-4">Premium</h4>
-          <p className=" text-purple-500 text-2xl font-bold mb-8">9,99€/mois</p>
+
+        <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md w-80 transform transition duration-300 hover:scale-105 flex flex-col">
+          <h4 className=" text-3xl font-bold mt-16 mb-8 text-center">MoviesLibrary</h4>
+          <p className=" text-purple-500 text-2xl font-bold mb-8 text-center">10,99€/mois</p>
           <ul className="list-none list-inside mb-4 flex-grow">
             <li className="mb-2 font-semibold"> <span className="text-purple-500 mr-2">✔</span> Streamez sur 10 appareils</li>
             <li className="mb-2 font-semibold"> <span className="text-purple-500 mr-2">✔</span> Aucune pub</li>
