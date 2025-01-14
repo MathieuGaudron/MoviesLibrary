@@ -73,7 +73,7 @@ app.post("/login", async (req, res) => {
       
       const token = jwt.sign({ userId: user._id }, "secret", { expiresIn: "1h" });
   
-      res.status(200).json({ message: "Connexion réussie.", token });
+      res.status(200).json({ message: "Connexion réussie.",  token, username: user.username });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Erreur serveur.", error: err.message });

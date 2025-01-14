@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +24,7 @@ const Login = () => {
       if (response.ok) {
         
         localStorage.setItem("token", data.token);
+        localStorage.setItem("username", data.username);
         // console.log("Connexion réussie. Token :", data.token);
         navigate("/");
       } else {
@@ -80,6 +81,13 @@ const Login = () => {
             >
               Se connecter
             </button>
+            
+            <div className="text-center mt-4">
+              <Link to="/signup" className="text-gray-200 text-lg font-semibold hover:underline">
+                <span className="text-gray-400">Pas encore inscris ?</span> Inscrivez-vous !
+              </Link>
+            </div>
+            
           </div>
         </form>
       </div>
