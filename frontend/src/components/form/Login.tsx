@@ -4,24 +4,45 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Ajoutez ici la logique de connexion
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // Redirigez l'utilisateur après la connexion
-    navigate("/");
+
+    try {
+      const response = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        
+        localStorage.setItem("token", data.token);
+        // console.log("Connexion réussie. Token :", data.token);
+        navigate("/");
+      } else {
+        setError(data.message || "Erreur lors de la connexion.");
+      }
+    } catch (err) {
+      console.error("Erreur :", err);
+      setError("Une erreur est survenue. Veuillez réessayer.");
+    }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-900">Connexion</h2>
+    <div className="flex justify-center items-center h-screen bg-[radial-gradient(circle_at_50%_0%,darkviolet_-70%,black_50%)]">
+      <div className="w-full max-w-md p-8 space-y-6">
+        <h2 className="text-2xl font-bold text-center text-white">Connexion</h2>
+        {error && <p className="text-red-500 text-lg">{error}</p>}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block text-lg font-medium text-white">
               Adresse e-mail
             </label>
             <input
@@ -30,13 +51,14 @@ const Login = () => {
               type="email"
               autoComplete="email"
               required
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Adresse e-mail"
+              className="bg-gray-700 w-full px-3 py-2 mt-1 rounded-md shadow-sm focus:outline-none text-white focus:ring-white focus:border-white text-lg placeholder-gray-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-lg font-medium text-white">
               Mot de passe
             </label>
             <input
@@ -45,7 +67,8 @@ const Login = () => {
               type="password"
               autoComplete="current-password"
               required
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Mot de passe"
+              className="bg-gray-700 w-full px-3 py-2 mt-1 rounded-md shadow-sm focus:outline-none text-white focus:ring-white focus:border-white text-lg placeholder-gray-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -53,7 +76,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="bg-purple-500 text-white font-semibold py-2 px-4 rounded-md w-full hover:bg-purple-700 mt-8"
             >
               Se connecter
             </button>

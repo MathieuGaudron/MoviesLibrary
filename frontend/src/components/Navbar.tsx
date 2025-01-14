@@ -13,6 +13,8 @@ const Navbar: React.FC = () => {
         </Link>
       </h1>
 
+      
+
       {/* Menu burger */}
       <div className="sm:hidden">
         <button
@@ -53,11 +55,13 @@ const Navbar: React.FC = () => {
         </button>
       </div>
 
+
+
       {/* Liens de navigation */}
       <ul
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } sm:flex space-x-4 font-inter sm:space-x-4 sm:items-center sm:static sm:gap-0 absolute sm:relative bg-black sm:bg-transparent top-14 sm:top-0 left-0 w-full sm:w-auto p-4 sm:p-0 z-10`}
+        } sm:flex space-x-4 font-inter sm:space-x-4 sm:items-center sm:static sm:gap-0 absolute bg-black sm:bg-transparent top-14 sm:top-0 left-0 w-full sm:w-auto p-4 sm:p-0 z-10`}
       >
         <li className="my-2 sm:my-0">
           <Link
