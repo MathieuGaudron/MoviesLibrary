@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="sticky top-0 left-0 right-0 max-w-full w-full p-4 z-20 flex justify-between items-center bg-black shadow-lg bg-opacity-70 backdrop-blur-md">
+    <nav className="sticky top-0 left-0 right-0 max-w-full w-full p-4 z-50 flex justify-between items-center bg-black shadow-lg bg-opacity-70 backdrop-blur-md ">
 
       {/* Logo */}
       <h1 className="text-3xl font-modak bg-gradient-to-r from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent transform transition duration-700 hover:scale-105">
@@ -26,6 +26,14 @@ const Navbar: React.FC = () => {
         </Link>
       </h1>
 
+
+      <div>
+        <ul className="flex justify-between space-x-8 font-inter text-lg  sm:flex">
+          <li className="text-white">Film</li>
+          <li className="text-white">Série TV</li>
+          <li className="text-white">Genres</li>
+        </ul>
+      </div>
 
       {/* Menu burger */}
       <div className="sm:hidden">
