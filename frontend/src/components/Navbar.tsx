@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
@@ -17,80 +18,137 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="sticky top-0 left-0 right-0 max-w-full w-full p-4 z-50 flex justify-between items-center bg-black shadow-lg bg-opacity-70 backdrop-blur-md ">
-
-      {/* Logo */}
-      <h1 className="text-3xl font-modak bg-gradient-to-r from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent transform transition duration-700 hover:scale-105">
-        <Link to="/" className="cursor-pointer">
-          MOVIES LIBRARY
-        </Link>
-      </h1>
+    <nav className="sticky top-0 left-0 right-0 max-w-full w-full p-4 z-50 bg-black shadow-lg bg-opacity-70 backdrop-blur-md">
 
 
-      <div>
-        <ul className="flex justify-between space-x-8 font-inter text-lg  sm:flex">
-          <li className="text-white">Film</li>
-          <li className="text-white">Série TV</li>
-          <li className="text-white">Genres</li>
+
+      {/* Desktop */}
+      <div className="hidden sm:flex justify-between items-center">
+
+        <h1 className="text-3xl font-modak bg-gradient-to-r from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent transform transition duration-500 hover:scale-105">
+          <Link to="/" className="cursor-pointer">
+            MOVIES LIBRARY
+          </Link>
+        </h1>
+
+       
+        <ul className="flex space-x-16 font-inter text-lg">
+          <li className="text-white font-bold transform transition duration-300 hover:scale-110">
+            <Link
+              to="/movies"
+              onClick={() => {
+                if (location.pathname === "/movies") {
+                  window.location.reload();
+                }
+              }}
+            >
+              Film
+            </Link>
+          </li>
+          <li className="text-white font-bold transform transition duration-300 hover:scale-110">
+            Série TV
+          </li>
+          <li className="text-white font-bold transform transition duration-300 hover:scale-110">
+            Genres
+          </li>
         </ul>
+
+        
+
+        
+        <div>
+          {username ? (
+            <>
+              <span className="text-white font-semibold mr-4">Bonjour, {username}</span>
+              <button
+                onClick={handleLogout}
+                className="bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold cursor-pointer"
+              >
+                Se déconnecter
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="text-white hover:text-gray-300 font-semibold mr-4"
+              >
+                Se connecter →
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold cursor-pointer"
+              >
+                S'inscrire →
+              </Link>
+            </>
+          )}
+        </div>
       </div>
 
-      {/* Menu burger */}
-      <div className="sm:hidden">
+
+      
+      {/* Mobile */}
+      <div className="flex sm:hidden justify-between items-center">
+
+        <h1 className="text-2xl font-modak bg-gradient-to-r from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent">
+          <Link to="/" className="cursor-pointer">
+            MOVIES LIBRARY
+          </Link>
+        </h1>
+
+
+
+        {/* User Menu */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-white focus:outline-none"
+          className="text-white focus:outline-none hover:text-purple-500"
         >
-          {isMenuOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
-          )}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="h-6 w-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M12 2a5 5 0 100 10 5 5 0 000-10zM4 20a8 8 0 0116 0H4z"
+              clipRule="evenodd"
+            />
+          </svg>
         </button>
       </div>
 
 
-      {/* Liens de navigation */}
+      {/* Mobile menu */}
       <ul
         className={`${
           isMenuOpen ? "block" : "hidden"
-        } sm:flex space-x-4 font-inter sm:space-x-4 sm:items-center sm:static sm:gap-0 absolute bg-black sm:bg-transparent top-14 sm:top-0 left-0 w-full sm:w-auto p-4 sm:p-0 z-10`}
+        } sm:hidden mt-4 bg-black bg-opacity-90 p-4 rounded-md`}
       >
+        <li className="text-white font-bold flex justify-center mb-4 transform transition duration-300 hover:scale-110">
+          <Link
+            to="/movies"
+            onClick={() => {
+              setIsMenuOpen(false);
+              if (location.pathname === "/movies") {
+                window.location.reload();
+              }
+            }}
+          >
+            Film
+          </Link>
+        </li>
+        <li className="text-white font-bold mb-4 flex justify-center transform transition duration-300 hover:scale-110">Série TV</li>
+        <li className="text-white font-bold mb-4 flex justify-center transform transition duration-300 hover:scale-110">Genres</li>
+
         {username ? (
           <>
-            <li className="text-white font-semibold">
-              Bonjour, {username}
-            </li>
+            <li className="text-white font-semibold mt-16 mb-4 flex justify-center">Bonjour, {username}</li>
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full sm:w-auto bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold cursor-pointer text-center"
+                className="block w-full bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold text-center"
               >
                 Se déconnecter
               </button>
@@ -98,10 +156,10 @@ const Navbar: React.FC = () => {
           </>
         ) : (
           <>
-            <li>
+            <li className="mb-4">
               <Link
                 to="/login"
-                className="block w-full sm:w-auto text-white hover:text-gray-300 font-semibold cursor-pointer text-center sm:text-left"
+                className="block w-full text-white hover:text-gray-300 font-semibold text-center"
               >
                 Se connecter →
               </Link>
@@ -109,7 +167,7 @@ const Navbar: React.FC = () => {
             <li>
               <Link
                 to="/signup"
-                className="block w-full sm:w-auto bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold cursor-pointer text-center"
+                className="block w-full bg-purple-600 text-white px-4 py-2 hover:bg-purple-500 rounded-full font-semibold text-center"
               >
                 S'inscrire →
               </Link>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
+import Navbar from "./Navbar";
 
 interface Movie {
   id: number;
@@ -60,11 +61,7 @@ const Films: React.FC = () => {
       }
     };
 
-    const delayDebounceFn = setTimeout(() => {
-      searchMovies();
-    }, 300);
-
-    return () => clearTimeout(delayDebounceFn);
+    searchMovies();
   }, [searchTerm, currentPage]);
 
   const handlePageChange = (newPage: number) => {
@@ -73,33 +70,55 @@ const Films: React.FC = () => {
     }
   };
 
-  return (
-    <div className="p-8 min-h-screen font-sans">
-      
+  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1);
+  };
 
-      <h2 className="text-white font-bold text-3xl mt-20 mb-10">Populaires</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-4">
-        {movies.map((movie) => (
-          <Link
-            to={`/movie/${movie.id}`}
-            key={movie.id}
-            className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer"
-          >
-            {movie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-96 object-fill"
-              />
-            )}
-            <div className="p-4 text-white bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900">
-              <h2 className="text-lg truncate text-white font-bold">{movie.title}</h2>
-              <p className="text-gray-300">
-                {new Date(movie.release_date).getFullYear()}
-              </p>
-            </div>
-          </Link>
-        ))}
+  return (
+    <div className="relative h-screen overflow-y-auto">
+      <Navbar />
+
+      <div className="p-8 min-h-screen font-sans">
+
+      <div className="flex justify-center items-center mt-10">
+        <input
+          type="text"
+          placeholder="Rechercher un film . . ."
+          value={searchTerm}
+          onChange={handleSearchInputChange}
+          className="w-1/2 px-4 py-2 my-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-600 focus:border-transparent"
+        />
+    </div>
+
+        <h2 className="text-white font-bold font-inter text-3xl mt-20 mb-10">
+          Tous vos films favoris
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+          {movies.map((movie) => (
+            <Link
+              to={`/movie/${movie.id}`}
+              key={movie.id}
+              className="relative rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer"
+            >
+              {movie.poster_path && (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className="w-full  object-contain"
+                />
+              )}
+              <div className="p-4 text-white bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900">
+                <h2 className="text-lg truncate text-white font-bold">
+                  {movie.title}
+                </h2>
+                <p className="text-gray-300">
+                  {new Date(movie.release_date).getFullYear()}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
 
       <Pagination
