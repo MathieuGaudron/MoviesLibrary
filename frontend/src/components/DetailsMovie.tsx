@@ -11,6 +11,7 @@ interface MovieDetails {
   vote_average: number;
   genres: { id: number; name: string }[];
   adult: boolean;
+  runtime: number;
 }
 
 const API_KEY = "49c4a00d23ea0f1e33aac25430e1195d";
@@ -98,6 +99,7 @@ const DetailsMovie: React.FC = () => {
               <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-200 via-purple-300 to-indigo-200 bg-clip-text text-transparent pb-2">
                 {movie.title}
               </h1>
+              <div className="flex justify-around my-6">
               <p className="text-gray-400 text-sm sm:text-base font-bold">
                 Date de sortie :{" "}
                 {new Date(movie.release_date).toLocaleDateString("fr-FR", {
@@ -105,6 +107,8 @@ const DetailsMovie: React.FC = () => {
                   year: "numeric",
                 })}
               </p>
+              <p className="text-gray-400 text-sm sm:text-base font-bold">Durée : {movie.runtime} minutes</p>
+              </div>
               <p className="text-white text-sm sm:text-base">
                 {movie.overview}
               </p>

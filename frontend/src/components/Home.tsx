@@ -69,7 +69,7 @@ const Home: React.FC = () => {
 
 
 
-        <div className="mt-20">
+        <div className="mt-20 sm:mx-0 mx-10">
         <div className="text-center flex flex-col justify-center items-center">
           <h3 className="lg:text-3xl sm:text-3xl p-3 font-inter md:text-3xl text-white font-bold w-4/5">
             Regardez ce que vous voulez, quand vous voulez, où vous voulez.
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
           {/* Caroussel film populaire */}
             <div className="py-10">
               {movie.length > 0 && (
-                <div className="relative w-full max-w-4xl mx-auto flex items-center">
+                <div className="relative w-full max-w-4xl mx-auto flex items-center gap-6">
                   <div className="w-1/4 opacity-50 transform transition hover:scale-105">
                     <img
                       src={`https://image.tmdb.org/t/p/w500${

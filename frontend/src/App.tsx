@@ -2,7 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
 import Home from "./components/Home";
 import Films from "./components/Films";
+import Series from "./components/Series";
 import DetailsMovie from "./components/DetailsMovie";
+import DetailsSerie from "./components/DetailsSerie";
 import Genres from "./components/Genres";
 import Signup from "./components/form/Signup";
 import Login from "./components/form/Login";
@@ -19,6 +21,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Films />} />  
             <Route path="/movie/:id" element={<DetailsMovie />} />
+            <Route path="/series" element={<Series />} />
+            <Route path="/serie/:id" element={<DetailsSerie />} />
             <Route path="/genre/:id" element={<Genres />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
