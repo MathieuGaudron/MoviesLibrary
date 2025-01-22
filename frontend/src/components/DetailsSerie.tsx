@@ -119,7 +119,8 @@ const DetailSerie: React.FC = () => {
           </div>
         </div>
 
-        {/* Présentation de la série */}
+
+        {/* Details Serie */}
         <div className="w-full max-w-6xl rounded-2xl shadow-lg border border-black relative overflow-hidden mt-16 lg:mt-8">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-violet-800 to-purple-900 opacity-55"></div>
           <div className="relative flex flex-wrap lg:flex-nowrap items-center lg:items-start gap-8 p-6 sm:p-8">
@@ -140,11 +141,22 @@ const DetailSerie: React.FC = () => {
                 Nombre de saisons : {serie.number_of_seasons}
               </p>
               <p className="text-amber-400 font-bold ">Note : {serie.vote_average} / 10</p>
+              <p className="text-white font-bold text-sm sm:text-base flex flex-wrap justify-center gap-x-2 gap-y-1">
+                  {serie.genres.map((genre, index) => (
+                    <span
+                      key={genre.id}
+                      className="cursor-pointer hover:text-gray-300"
+                      onClick={() => navigate(`/genre/${genre.id}`)}
+                    >
+                      {genre.name} {index < serie.genres.length - 1 && " /"}
+                    </span>
+                  ))}
+                </p>
             </div>
           </div>
         </div>
 
-        {/* Sélecteur de saison */}
+        {/* Saison */}
         <div className="my-6 flex justify-center items-center">
           <label className="text-white font-bold mr-4" htmlFor="season-select">
             Choisissez une saison :
@@ -165,7 +177,7 @@ const DetailSerie: React.FC = () => {
           </select>
         </div>
 
-        {/* Liste des épisodes */}
+        {/* Episodes */}
         <div className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-6">
           {episodes.map((episode) => (
             <div
