@@ -129,18 +129,23 @@ const DetailSerie: React.FC = () => {
               className="w-full lg:w-1/3 max-h-96 rounded-lg shadow-lg object-cover"
             />
             <div className="flex flex-col gap-4 w-full text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl font-bold text-white">{serie.name}</h1>
-              <p className="text-white">{serie.overview}</p>
-              <p className="text-gray-400">
+              <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-200 via-purple-300 to-indigo-200 bg-clip-text text-transparent pb-2">{serie.name}</h1>
+              <p className="text-gray-400 font-bold">Date de sortie :{" "}
+                {new Date(serie.first_air_date).toLocaleDateString("fr-FR", {
+                  month: "2-digit",
+                  year: "numeric",
+                })}</p>
+              <p className="text-white font-bold">{serie.overview}</p>
+              <p className="text-gray-400 font-bold">
                 Nombre de saisons : {serie.number_of_seasons}
               </p>
-              <p className="text-amber-400">Note : {serie.vote_average} / 10</p>
+              <p className="text-amber-400 font-bold ">Note : {serie.vote_average} / 10</p>
             </div>
           </div>
         </div>
 
         {/* Sélecteur de saison */}
-        <div className="my-6">
+        <div className="my-6 flex justify-center items-center">
           <label className="text-white font-bold mr-4" htmlFor="season-select">
             Choisissez une saison :
           </label>
@@ -177,11 +182,11 @@ const DetailSerie: React.FC = () => {
                   className="w-full max-h-64 object-cover rounded-lg mb-4"
                 />
               ) : (
-                <p className="text-gray-400 italic">Pas d'image disponible.</p>
+                <p className="text-gray-400 italic"></p>
               )}
               <p className="text-white mb-2">{episode.overview || "Pas de description disponible."}</p>
               {episode.runtime && (
-                <p className="text-gray-300">Durée : {episode.runtime} minutes</p>
+                <p className="text-gray-400 font-bold">Durée : {episode.runtime} minutes</p>
               )}
             </div>
           ))}
