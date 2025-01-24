@@ -28,14 +28,14 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
         <button
           key={1}
           onClick={() => onPageChange(1)}
-          className={`px-4 py-2 mx-1 rounded-lg ${1 === currentPage ? 'bg-purple-700 text-white' : 'bg-gray-300 text-black'}`}
+          className={`px-3 py-1 sm:px-4 sm:py-2 mx-1 rounded-lg ${1 === currentPage ? 'bg-purple-700 text-white' : 'bg-gray-300 text-black hover:bg-gray-400'}`}
         >
           1
         </button>
       );
 
       if (startPage > 2) {
-        pageNumbers.push(<span key="start-ellipsis" className="px-4 py-2 mx-1 text-white">...</span>);
+        pageNumbers.push(<span key="start-ellipsis" className="px-2 sm:px-4 py-1 mx-1 text-gray-500">...</span>);
       }
     }
 
@@ -44,7 +44,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
         <button
           key={i}
           onClick={() => onPageChange(i)}
-          className={`px-4 py-2 mx-1 rounded-lg ${i === currentPage ? 'bg-purple-700 text-white' : 'bg-gray-300 text-black'}`}
+          className={`px-3 py-1 sm:px-4 sm:py-2 mx-1 rounded-lg ${i === currentPage ? 'bg-purple-700 text-white' : 'bg-gray-300 text-black hover:bg-gray-400'}`}
         >
           {i}
         </button>
@@ -53,14 +53,14 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 
     if (endPage < totalPages) {
       if (endPage < totalPages - 1) {
-        pageNumbers.push(<span key="end-ellipsis" className="px-4 py-2 mx-1 text-white">...</span>);
+        pageNumbers.push(<span key="end-ellipsis" className="px-2 sm:px-4 py-1 mx-1 text-gray-500">...</span>);
       }
 
       pageNumbers.push(
         <button
           key={totalPages}
           onClick={() => onPageChange(totalPages)}
-          className={`px-4 py-2 mx-1 rounded-lg ${totalPages === currentPage ? 'bg-purple-700 text-white' : 'bg-gray-300 text-black'}`}
+          className={`px-3 py-1 sm:px-4 sm:py-2 mx-1 rounded-lg ${totalPages === currentPage ? 'bg-purple-700 text-white' : 'bg-gray-300 text-black hover:bg-gray-400'}`}
         >
           {totalPages}
         </button>
@@ -71,21 +71,21 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
   };
 
   return (
-    <div className="flex justify-center mt-8 items-center">
+    <div className="flex flex-wrap justify-center mt-8 items-center gap-2 sm:gap-4">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 mx-2 bg-purple-700 hover:bg-purple-800 text-white rounded-lg disabled:opacity-50"
+        className="px-3 py-1 sm:px-4 sm:py-2 mx-1 bg-purple-700 hover:bg-purple-800 text-white rounded-lg disabled:opacity-50"
       >
         Précédent
       </button>
-      <div className="flex">
+      <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
         {renderPageNumbers()}
       </div>
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 mx-2 bg-purple-700 hover:bg-purple-800  text-white rounded-lg disabled:opacity-50"
+        className="px-3 py-1 sm:px-4 sm:py-2 mx-1 bg-purple-700 hover:bg-purple-800 text-white rounded-lg disabled:opacity-50"
       >
         Suivant
       </button>

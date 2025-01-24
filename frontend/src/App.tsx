@@ -2,10 +2,11 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
 import Home from "./components/Home";
 import Films from "./components/Films";
-import Series from "./components/Series";
 import DetailsMovie from "./components/DetailsMovie";
+import Series from "./components/Series";
 import DetailsSerie from "./components/DetailsSerie";
 import Genres from "./components/Genres";
+import GenreDetails from "./components/GenreDetails";
 import Signup from "./components/form/Signup";
 import Login from "./components/form/Login";
 
@@ -24,7 +25,9 @@ const App = () => {
             <Route path="/series" element={<Series />} />
             <Route path="/serie/:id" element={<DetailsSerie />} />
             <Route path="/genres" element={<Genres />} />
-            <Route path="/genre/:id" element={<Genres />} />
+            {/* <Route path="/genre/:id" element={<Genres />} /> */}
+            <Route path="/genre/:id" element={<GenreDetails />} />
+
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
           </Routes>

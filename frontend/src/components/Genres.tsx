@@ -46,22 +46,28 @@ const Genres: React.FC = () => {
       <div className="text-center mb-16 mt-24">
         {/* <h1 className="text-3xl font-bold mb-10">Explorez les genres</h1> */}
         <div className="flex justify-center gap-4">
-          <button
-            onClick={() => handleCategoryChange("movie")}
-            className={`px-4 py-2 rounded font-bold ${
-              category === "movie" ? "bg-purple-600" : "bg-gray-700"
-            } hover:bg-purple-800 transition`}
-          >
-            Films
-          </button>
-          <button
-            onClick={() => handleCategoryChange("tv")}
-            className={`px-4 py-2 rounded font-bold ${
-              category === "tv" ? "bg-purple-600" : "bg-gray-700"
-            } hover:bg-purple-800 transition`}
-          >
-            Séries TV
-          </button>
+        <button
+  onClick={() => handleCategoryChange("movie")}
+  className={`px-4 py-2 rounded font-bold transition ${
+    category === "movie"
+      ? "bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700"
+      : ""
+  }`}
+>
+  Films
+</button>
+<button
+  onClick={() => handleCategoryChange("tv")}
+  className={`px-4 py-2 rounded font-bold transition ${
+    category === "tv"
+      ? "bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700"
+      : ""
+  }`}
+>
+  Séries TV
+</button>
+
+
         </div>
       </div>
 
@@ -71,16 +77,17 @@ const Genres: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mx-6 text-lg">
           {genres.map((genre) => (
             <Link
-              to={`/genre/${genre.id}`}
-              key={genre.id}
-              className="p-4 rounded-lg shadow hover:bg-purple-600 transition transform hover:scale-105"
-            >
-              <h2 className="text-center font-bold">{genre.name}</h2>
-            </Link>
+            to={`/genre/${genre.id}`}
+            key={genre.id}
+            className="p-4 rounded-lg shadow hover:bg-gradient-to-r from-purple-800 via-purple-600 to-purple-800 transition transform hover:scale-105"
+          >
+            <h2 className="text-center font-bold">{genre.name}</h2>
+          </Link>
+          
           ))}
         </div>
       )}
-    </div>
+      </div>
   );
 };
 

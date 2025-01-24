@@ -70,7 +70,9 @@ const Films: React.FC = () => {
     }
   };
 
-  const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
@@ -80,16 +82,15 @@ const Films: React.FC = () => {
       <Navbar />
 
       <div className="p-8 min-h-screen font-sans">
-
-      <div className="flex justify-center items-center mt-10">
-        <input
-          type="text"
-          placeholder="Rechercher un film . . ."
-          value={searchTerm}
-          onChange={handleSearchInputChange}
-          className="w-1/2 px-4 py-2 my-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2  hover:ring-violet-600 focus:border-transparent"
-        />
-    </div>
+        <div className="flex justify-center items-center mt-10">
+          <input
+            type="text"
+            placeholder="Rechercher un film . . ."
+            value={searchTerm}
+            onChange={handleSearchInputChange}
+            className="w-1/2 px-4 py-2 my-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2  hover:ring-violet-600 focus:border-transparent"
+          />
+        </div>
 
         <h2 className="text-white font-bold font-inter text-3xl mt-20 mb-10">
           Tous vos films favoris
@@ -120,12 +121,13 @@ const Films: React.FC = () => {
           ))}
         </div>
       </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <div className="my-10">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
