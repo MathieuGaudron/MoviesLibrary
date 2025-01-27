@@ -4,9 +4,11 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const app = express();
+require("dotenv").config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(express.json());
-const cors = require("cors");
+
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -19,7 +21,7 @@ app.use(
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true); 
       } else {
-        callback(new Error("CORS non autorisé pour cette origine")); // Bloque l'accès
+        callback(new Error("CORS non autorisé pour cette origine")); 
       }
     },
     methods: ["GET", "POST", "DELETE", "PUT"], 
@@ -28,7 +30,7 @@ app.use(
 );
 
 mongoose
-  .connect("mongodb://localhost:27042/MoviesLibrary", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -84,7 +86,8 @@ app.post("/login", async (req, res) => {
         return res.status(401).json({ message: "Utilisateur non trouvé." });
       }
       
-      const token = jwt.sign({ userId: user._id }, "secret", { expiresIn: "1h" });
+      
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
   
       res.status(200).json({ message: "Connexion réussie.",  token, username: user.username });
     } catch (err) {
