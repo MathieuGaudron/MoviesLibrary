@@ -12,19 +12,19 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://movies-library-psi.vercel.app" 
+  "https://movies-library-psi.vercel.app",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); 
+        callback(null, true);
       } else {
-        callback(new Error("CORS non autorisé pour cette origine")); 
+        callback(new Error("CORS non autorisé pour cette origine"));
       }
     },
-    methods: ["GET", "POST", "DELETE", "PUT"], 
+    methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
 );
