@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Pagination from "./Pagination";
 
@@ -16,19 +16,22 @@ const API_KEY = "49c4a00d23ea0f1e33aac25430e1195d";
 
 const GenreDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
   const navigate = useNavigate();
+
   const [media, setMedia] = useState<Media[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [category, setCategory] = useState<"movie" | "tv">("movie");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const genreName = location.state?.genreName || "Genre inconnu";
 
   useEffect(() => {
     const fetchMediaByGenre = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/discover/${category}?api_key=${API_KEY}&language=fr-FR&with_genres=${id}`
+          `https://api.themoviedb.org/3/discover/${category}?api_key=${API_KEY}&language=fr-FR&with_genres=${id}&page=${currentPage}`
         );
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
@@ -44,7 +47,7 @@ const GenreDetails: React.FC = () => {
     };
 
     fetchMediaByGenre();
-  }, [id, category]);
+  }, [id, category, currentPage]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -59,25 +62,25 @@ const GenreDetails: React.FC = () => {
         <div className="p-8">
           <div className="text-center mb-16 mt-20">
             <h1 className="text-3xl font-bold mb-8">
-              {category === "movie" ? "Films" : "Séries TV"} - Genre ID {id}
+              {category === "movie" ? "Films" : "Séries TV"} - {genreName}
             </h1>
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => setCategory("movie")}
-                className={`px-4 py-2 rounded font-bold transition ${
+                className={`px-4 py-2 rounded font-bold transform transition duration-500 hover:scale-110 cursor-pointer ${
                   category === "movie"
                     ? "bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700"
-                    : "bg-gray-700"
+                    : ""
                 } hover:bg-purple-800`}
               >
                 Films
               </button>
               <button
                 onClick={() => setCategory("tv")}
-                className={`px-4 py-2 rounded font-bold transition ${
+                className={`px-4 py-2 rounded font-bold transform transition duration-500 hover:scale-110 cursor-pointer ${
                   category === "tv"
                     ? "bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700"
-                    : "bg-gray-700"
+                    : ""
                 } hover:bg-purple-800`}
               >
                 Séries TV
@@ -102,14 +105,18 @@ const GenreDetails: React.FC = () => {
                   <img
                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                     alt={item.title || item.name}
-                    className="w-full  object-contain"
+                    className="w-full object-contain"
                   />
                   <div className="p-4 text-white bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900">
                     <h2 className="text-center font-bold">
                       {item.title || item.name}
                     </h2>
                     <p className="text-center text-gray-400">
-                      {item.release_date || item.first_air_date}
+                      {item.release_date
+                        ? new Date(item.release_date).getFullYear()
+                        : item.first_air_date
+                        ? new Date(item.first_air_date).getFullYear()
+                        : ""}
                     </p>
                   </div>
                 </div>

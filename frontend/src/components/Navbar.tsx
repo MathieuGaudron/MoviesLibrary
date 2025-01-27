@@ -166,7 +166,7 @@ const Navbar: React.FC = () => {
         </li>
         <li className="text-white font-bold mb-4 flex justify-center transform transition duration-300 hover:scale-110">
           <Link
-            to="/renres"
+            to="/genres"
             onClick={() => {
               setIsMenuOpen(false);
               if (location.pathname === "/genres") {
