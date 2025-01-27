@@ -27,7 +27,7 @@ const Home: React.FC = () => {
       }
     };
     fetchMovies();
-  }, []);
+  }, [API_URL]);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
