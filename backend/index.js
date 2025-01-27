@@ -6,11 +6,24 @@ const jwt = require("jsonwebtoken");
 const app = express();
 
 app.use(express.json());
+const cors = require("cors");
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://movies-library-psi.vercel.app" 
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true, 
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); 
+      } else {
+        callback(new Error("CORS non autorisé pour cette origine")); // Bloque l'accès
+      }
+    },
+    methods: ["GET", "POST", "DELETE", "PUT"], 
+    credentials: true,
   })
 );
 
@@ -86,7 +99,7 @@ app.post("/login", async (req, res) => {
 
 
 
-const PORT = 4000;
+  const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
