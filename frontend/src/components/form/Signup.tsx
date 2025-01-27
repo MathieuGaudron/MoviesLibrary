@@ -32,6 +32,7 @@ const Signup = () => {
       });
 
       if (response.ok) {
+        alert("Inscription réussie. Vous pouvez maintenant vous connecter.");
         navigate("/login");
       } else {
         const data = await response.json();
