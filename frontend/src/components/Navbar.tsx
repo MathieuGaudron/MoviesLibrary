@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile */}
-      <div className="flex sm:hidden justify-between items-center">
+      <div className="fixed flex sm:hidden justify-between items-center">
         <h1 className="text-2xl font-modak bg-gradient-to-r cursor-pointer from-indigo-800 via-purple-300 to-indigo-800 bg-clip-text text-transparent  transform transition duration-500 hover:scale-105">
           <Link to="/" className="cursor-pointer">
             MOVIES LIBRARY
